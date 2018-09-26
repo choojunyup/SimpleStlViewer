@@ -2,6 +2,7 @@ package com.hansen.stlviewer.simplestlviewer;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,18 +34,36 @@ public class FileFinderActivity extends AppCompatActivity {
     private String mDirPath;
     private Intent stlLoad;
 
+    private String DeivcePath="";
+    private String DownloadPath="";
+
+    private SharedPreferences appdatas = null;
+    private SharedPreferences.Editor editor = null;
+    private String dataName = "appDatas";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //permissionCheck();
+
+
         mPath = (TextView)findViewById(R.id.tvPath);
         mFileList = (ListView)findViewById(R.id.filelist);
         stlLoad = new Intent(getApplicationContext(),STLViewActivity.class);
 
-        //while(permissionCheck()==0){}
+        DeivcePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        DownloadPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
 
-        //permissionCheck();
+        appdatas = getSharedPreferences(dataName, MODE_PRIVATE);
+        editor = appdatas.edit();
+        //editor.clear();
+        //editor.putString("currentRoot",DeivcePath);
+        //editor.commit();
+
+       //while(permissionCheck()==0){}
+
 
         //mRoot = rootFind();  // devices find root
         //mRoot = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -66,9 +86,17 @@ public class FileFinderActivity extends AppCompatActivity {
                         Toast.makeText(FileFinderActivity.this, "can not read", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    stlLoad.putExtra("stl_path",fileInfo.getFilePath());
+
+                    editor.putString("currentRoot",mDirPath);
+                    editor.commit();
+
+                    stlLoad.putExtra("stlPath",fileInfo.getFilePath());
                     startActivity(stlLoad);
+
+                    //finish();
+
                 }
+
             }
         });
     }
@@ -162,7 +190,7 @@ public class FileFinderActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if(mRoot.equals(mDirPath)){            //if rootDirectory   app finish!!!!
-            //Toast.makeText(FileFinderActivity.this, "bye~", Toast.LENGTH_SHORT).show();
+            Toast.makeText(FileFinderActivity.this, "no more directory", Toast.LENGTH_SHORT).show();
             finish();
         }else{
             FileInfo fileInfo = (FileInfo)mAdapter.getItem(0);
@@ -176,14 +204,14 @@ public class FileFinderActivity extends AppCompatActivity {
     }
 
     public void download_store(View v){
-        mRoot = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
-        getDir(mRoot);
+        //mRoot = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+        getDir(DownloadPath);
         //mFileList.setAdapter(mAdapter);
     }
 
     public void device_store(View v){
-        mRoot = Environment.getExternalStorageDirectory().getAbsolutePath();
-        getDir(mRoot);
+        //mRoot = Environment.getExternalStorageDirectory().getAbsolutePath();
+        getDir(DeivcePath);
         //FileList.setAdapter(mAdapter);
     }
 
@@ -206,7 +234,11 @@ public class FileFinderActivity extends AppCompatActivity {
                 }
             } else {
                 //permission ok
-                setRoot();
+                //setRoot();
+
+                mRoot=appdatas.getString("currentRoot",DeivcePath);
+                getDir(mRoot);
+                //getDir(mDirPath);
             }
         } else {
             // low version
@@ -238,11 +270,12 @@ public class FileFinderActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         permissionCheck();
+        //setRoot();
 
     }
 
     private void setRoot(){
-        mRoot = Environment.getExternalStorageDirectory().getAbsolutePath();
-        getDir(mRoot);
+        //mRoot = Environment.getExternalStorageDirectory().getAbsolutePath();
+        getDir(DeivcePath);
     }
 }

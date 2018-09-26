@@ -7,6 +7,47 @@
     android:orientation="vertical" >
 
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tablayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:id="@+id/device_store"
+            android:layout_width="100dip"
+            android:layout_height="60dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="7dip"
+            android:onClick="device_store"
+            android:text="device" />
+
+        <Button
+            android:id="@+id/download_storage"
+            android:layout_width="110dip"
+            android:layout_height="60dip"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="7dip"
+            android:layout_toEndOf="@+id/device_store"
+            android:layout_toRightOf="@+id/device_store"
+            android:onClick="download_store"
+            android:text="download" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/filelist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvPath" />
+
     <TextView
         android:id="@+id/tvPath"
         android:layout_width="match_parent"
@@ -15,39 +56,20 @@
         android:paddingRight="5dp"
         android:background="#7b7a7a"
         android:textColor="#ffffff"
+        android:layout_below="@+id/linearLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <ListView
-        android:id="@+id/filelist"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvPath"
-        android:layout_above="@+id/button9" />
-
     <Button
-        android:text="download storage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button10"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/close"
+        android:layout_width="100dip"
+        android:layout_height="60dip"
+        android:onClick="device_store"
+        android:text="close"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="download_store" />
-
-    <Button
-        android:text="device storage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button9"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/button10"
-        android:layout_toStartOf="@+id/button10"
-        android:onClick="device_store" />
+        android:layout_above="@+id/tvPath" />
 
 
 </RelativeLayout>

@@ -15,10 +15,11 @@ public class stlPaser {
     File file;
     String format=null;
 
-    public stlPaser(String fileRoot){
-        file = new File(fileRoot);
+    //public stlPaser(String fileRoot){
+    public stlPaser(File file){
+        this.file = file;
 
-        if(fileSize(fileRoot) == file.length()){
+        if(fileSize(file.getPath()) == file.length()){
             STLpaser =new stlBinaryParser(file);
             format = "Binary";
         }else{

@@ -7,6 +7,8 @@ import android.opengl.Matrix;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import static java.lang.Math.abs;
+
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private static final String TAG = "MyGLRenderer";
@@ -36,6 +38,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private float[] centerPointXYZ;    //3
 
+    //float[] vectexs_min_max;
+
 
 
     public MyGLRenderer(stlPaser StlObject){
@@ -51,10 +55,18 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         GLES20.glEnable(GLES20.GL_CULL_FACE);
 
         centerPointXYZ = StlObject.getCenterPoint();
+
         ObjectModel = new Objectmodel(StlObject);
 
         Matrix.setIdentityM(mAccumulatedRotation, 0);
-
+/*
+        vectexs_min_max = StlObject.getXYZ();  //xmin,xmax,ymin,ymax,zmin,zmax
+        float xLength = abs(vectexs_min_max[1]-vectexs_min_max[0]);
+        float yLength = abs(vectexs_min_max[1]-vectexs_min_max[0]);
+        float zLength = abs(vectexs_min_max[1]-vectexs_min_max[0]);
+        float max = (xLength >= yLength ) ? xLength : yLength;
+        cameraZ = ((max >= zLength ) ? max : zLength)/2;
+*/
 
     }
 
@@ -65,6 +77,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         cameraX = mMoveX;
         cameraY = -mMoveY;
+
         Matrix.setLookAtM(mViewMatrix, 0, cameraX, cameraY, cameraZ, mMoveX,-mMoveY, 0, 0.0f, 1.0f, 0.0f);
         Matrix.setIdentityM(mModelMatrix, 0);
 

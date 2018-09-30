@@ -7,7 +7,7 @@
     android:orientation="vertical" >
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,58 +18,66 @@
 
         <Button
             android:id="@+id/device_store"
-            android:layout_width="100dip"
-            android:layout_height="60dip"
-            android:layout_alignParentBottom="true"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="70dip"
+            android:layout_height="50dip"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_margin="7dip"
+            android:layout_alignParentTop="true"
             android:onClick="device_store"
-            android:text="device" />
+            android:text="device"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/download_storage"
-            android:layout_width="110dip"
-            android:layout_height="60dip"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="7dip"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="95dip"
+            android:layout_height="50dip"
+            android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/device_store"
             android:layout_toRightOf="@+id/device_store"
             android:onClick="download_store"
-            android:text="download" />
+            android:text="download"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textSize="15sp" />
 
-    </LinearLayout>
+        <ImageButton
+            android:id="@+id/close"
+            android:visibility="invisible"
+            android:layout_width="30dip"
+            android:layout_height="30dip"
+            android:background="@drawable/gear"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:layout_marginRight="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/filelist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvPath"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvPath" />
+        android:layout_alignParentBottom="true" />
 
     <TextView
         android:id="@+id/tvPath"
+        android:text="dir path"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:background="#7b7a7a"
+        android:background="#d27b7a7a"
         android:textColor="#ffffff"
         android:layout_below="@+id/linearLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <Button
-        android:id="@+id/close"
-        android:layout_width="100dip"
-        android:layout_height="60dip"
-        android:onClick="device_store"
-        android:text="close"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/tvPath" />
 
 
 </RelativeLayout>

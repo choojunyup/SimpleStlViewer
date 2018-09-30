@@ -159,7 +159,7 @@ public class Objectmodel {
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0,vertexCount);
     }
 
-    private void vboUnUseRun(){    //now use
+    private void vboUnUseRun(){
         vertexBuffer.position(0);
         normalBuffer.position(0);
 

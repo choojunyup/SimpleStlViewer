@@ -135,12 +135,12 @@ public class STLViewActivity extends Activity {
 
         intent_data = getIntent();
 
-        if(intent_data.getDataString() != null) {
+        if(intent_data.getDataString() != null) {    //external searched
             path = intent_data.getDataString().substring(7);
             //editor.putString("stlfilepath", path);
             //editor.commit();
             //Log.i("stl- view-","save----------------------------------"+path);
-        }else {
+        }else {                                     //app in searched
             path = intent_data.getExtras().getString("stlPath");
             //Log.i("stl- view-","load-------------------------------");
         }

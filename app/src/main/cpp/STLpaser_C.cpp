@@ -107,11 +107,13 @@ extern "C" {
         }
 
 
+
         average_size = (fabsf(Xmax-Xmin)+fabsf(Ymax-Ymin)+fabsf(Zmax-Zmin))/3;
 
         for(int i = 0 ; i < vertec_counter*3 ; i++){
             vertex_array[i] = (vertex_array[i]/average_size)*2;
         }
+
 
 
         vertex_min_max[0] = Xmin;
@@ -126,9 +128,16 @@ extern "C" {
         //vertex_centerxyz[1] = ((Ymin/average_size)*2+(Ymax/average_size)*2)/2.0f;
         //vertex_centerxyz[2] = ((Zmin/average_size)*2+(Zmax/average_size)*2)/2.0f;
 
+
         vertex_centerxyz[0] = (Xmin+Xmax)/average_size;
         vertex_centerxyz[1] = (Ymin+Ymax)/average_size;
         vertex_centerxyz[2] = (Zmin+Zmax)/average_size;
+
+         /*
+        vertex_centerxyz[0] = (Xmin+Xmax)/2;
+        vertex_centerxyz[1] = (Ymin+Ymax)/2;
+        vertex_centerxyz[2] = (Zmin+Zmax)/2;
+        */
 
         fclose(AsciiFile);
 
@@ -215,11 +224,13 @@ extern "C" {
             i++;
         }
 
+
         average_size = (fabsf(Xmax-Xmin)+fabsf(Ymax-Ymin)+fabsf(Zmax-Zmin))/3;
 
         for(int x = 0 ; x < i*9 ; x++){
             vertex_array[x] = (vertex_array[x]/average_size)*2;
         }
+
 
         vertex_min_max[0] = Xmin;
         vertex_min_max[1] = Xmax;
@@ -228,10 +239,16 @@ extern "C" {
         vertex_min_max[4] = Zmin;
         vertex_min_max[5] = Zmax;
 
+
         vertex_centerxyz[0] = (Xmin+Xmax)/average_size;
         vertex_centerxyz[1] = (Ymin+Ymax)/average_size;
         vertex_centerxyz[2] = (Zmin+Zmax)/average_size;
 
+        /*
+        vertex_centerxyz[0] = (Xmin+Xmax)/2;
+        vertex_centerxyz[1] = (Ymin+Ymax)/2;
+        vertex_centerxyz[2] = (Zmin+Zmax)/2;
+        */
 
         fclose(binaryFile);
         (*env).ReleaseStringUTFChars(filename, fileRoot);

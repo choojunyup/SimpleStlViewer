@@ -87,8 +87,8 @@ public class FileFinderActivity extends AppCompatActivity {
                     }
                 }else{
 
-                    editor.putString("currentRoot",mDirPath);
-                    editor.commit();
+                    //editor.putString("currentRoot",mDirPath);
+                    //editor.commit();
 
                     stlLoad.putExtra("stlPath",fileInfo.getFilePath());
                     startActivity(stlLoad);
@@ -108,6 +108,10 @@ public class FileFinderActivity extends AppCompatActivity {
         mDirPath = dirPath;
 
         lTemp = new ArrayList<ListItem>();
+
+        //root save
+        editor.putString("currentRoot",mDirPath);
+        editor.commit();
 
         File f = new File(dirPath);
         File[] files = f.listFiles();

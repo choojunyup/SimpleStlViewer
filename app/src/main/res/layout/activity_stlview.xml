@@ -7,7 +7,6 @@
         android:id="@+id/glview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true">
     </RelativeLayout>
 
@@ -42,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:id="@+id/underbar"
-        android:background="#7b7a7a"
+        android:background="#a97b7a7a"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"

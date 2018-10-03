@@ -105,7 +105,7 @@ public class Objectmodel {
 
 
         //vboUnUseRun();  //not use
-        vboUseRun();
+        vboUseRun(0);
 
 
     }
@@ -127,9 +127,12 @@ public class Objectmodel {
 
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, buffers[0]);
         GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, vertexBuffer.capacity() * FLOAT_BYTE_SIZE, vertexBuffer, GLES20.GL_STATIC_DRAW);
+        //GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, vertexBuffer.capacity() * FLOAT_BYTE_SIZE, vertexBuffer,  GLES20.GL_LINE_STRIP);
 
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, buffers[1]);
         GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, normalBuffer.capacity() * FLOAT_BYTE_SIZE, normalBuffer, GLES20.GL_STATIC_DRAW);
+        //GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, normalBuffer.capacity() * FLOAT_BYTE_SIZE, normalBuffer, GLES20.GL_LINE_STRIP);
+
 
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 
@@ -143,7 +146,7 @@ public class Objectmodel {
 
     }
 
-    private void vboUseRun(){
+    private void vboUseRun(int mode){
 
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vertexsBufferIdx);
         GLES20.glEnableVertexAttribArray(mPositionHandle);
@@ -156,7 +159,13 @@ public class Objectmodel {
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 
         // Draw the object
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0,vertexCount);
+        //GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0,vertexCount);
+        //GLES20.glDrawArrays(GLES20.GL_POINTS, 0,vertexCount);
+        if(mode == 0 ){
+            GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0,vertexCount);
+        }else if(mode == 1){
+            GLES20.glDrawArrays(GLES20.GL_POINTS, 0,vertexCount);
+        }
     }
 
     private void vboUnUseRun(){

@@ -1,5 +1,9 @@
 package com.hansen.stlviewer.simplestlviewer;
 
+import android.util.Log;
+
+import com.hansen.stlviewer.simplestlviewer.stlpaser.paser;
+
 import java.io.File;
 
 /*
@@ -29,7 +33,7 @@ import java.io.File;
     ---------------------------loop
  */
 
-public class stlBinaryParser extends paser{
+public class stlBinaryParser extends paser {
 
 	static {
 		System.loadLibrary("STLpaser_C");

@@ -1,0 +1,16 @@
+{
+  "buildFiles": [
+    "C:\\data\\android_works\\SimpleStlViewer\\app\\CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "C:\\Users\\choo\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cmake\\debug\\armeabi-v7a --target clean"
+  ],
+  "libraries": {
+    "STLpaser_C-Debug-armeabi-v7a": {
+      "artifactName": "STLpaser_C",
+      "buildCommand": "C:\\Users\\choo\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cmake\\debug\\armeabi-v7a --target STLpaser_C",
+      "abi": "armeabi-v7a",
+      "output": "C:\\data\\android_works\\SimpleStlViewer\\app\\build\\intermediates\\cmake\\debug\\obj\\armeabi-v7a\\libSTLpaser_C.so"
+    }
+  }
+}

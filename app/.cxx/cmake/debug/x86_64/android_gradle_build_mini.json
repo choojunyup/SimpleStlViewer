@@ -1,0 +1,16 @@
+{
+  "buildFiles": [
+    "C:\\data\\android_works\\SimpleStlViewer\\app\\CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "C:\\Users\\choo\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cmake\\debug\\x86_64 --target clean"
+  ],
+  "libraries": {
+    "STLpaser_C-Debug-x86_64": {
+      "artifactName": "STLpaser_C",
+      "buildCommand": "C:\\Users\\choo\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cmake\\debug\\x86_64 --target STLpaser_C",
+      "abi": "x86_64",
+      "output": "C:\\data\\android_works\\SimpleStlViewer\\app\\build\\intermediates\\cmake\\debug\\obj\\x86_64\\libSTLpaser_C.so"
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "variant": {
+    "module": {
+      "rootBuildGradleFolder": "C:\\data\\android_works\\SimpleStlViewer",
+      "sdkFolder": "C:\\Users\\choo\\AppData\\Local\\Android\\Sdk",
+      "isNativeCompilerSettingsCacheEnabled": false,
+      "isBuildOnlyTargetAbiEnabled": true,
+      "splitsAbiFilterSet": [],
+      "intermediatesFolder": "C:\\data\\android_works\\SimpleStlViewer\\app\\build\\intermediates",
+      "gradleModulePathName": ":app",
+      "moduleRootFolder": "C:\\data\\android_works\\SimpleStlViewer\\app",
+      "makeFile": "C:\\data\\android_works\\SimpleStlViewer\\app\\CMakeLists.txt",
+      "buildSystem": "CMAKE",
+      "compilerSettingsCacheFolder": "C:\\data\\android_works\\SimpleStlViewer\\.cxx",
+      "cxxFolder": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx",
+      "ndkFolder": "C:\\Users\\choo\\AppData\\Local\\Android\\Sdk\\ndk-bundle",
+      "ndkVersion": "20.0.5594570",
+      "ndkSupportedAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkDefaultAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "cmakeToolchainFile": "."
+    },
+    "buildSystemArgumentList": [],
+    "cFlagList": [],
+    "cppFlagsList": [
+      "-std\u003dc++11"
+    ],
+    "variantName": "debug",
+    "soFolder": "C:\\data\\android_works\\SimpleStlViewer\\app\\build\\intermediates\\cmake\\debug\\lib",
+    "objFolder": "C:\\data\\android_works\\SimpleStlViewer\\app\\build\\intermediates\\cmake\\debug\\obj",
+    "jsonFolder": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cmake\\debug",
+    "gradleBuildOutputFolder": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cxx\\debug",
+    "isDebuggableEnabled": true,
+    "validAbiList": [
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
+    ],
+    "buildTargetSet": []
+  },
+  "abi": "ARMEABI_V7A",
+  "abiPlatformVersion": 16,
+  "cxxBuildFolder": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cmake\\debug\\armeabi-v7a",
+  "jsonFile": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cmake\\debug\\armeabi-v7a\\android_gradle_build.json",
+  "gradleBuildOutputFolder": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cxx\\debug\\armeabi-v7a",
+  "objFolder": "C:\\data\\android_works\\SimpleStlViewer\\app\\build\\intermediates\\cmake\\debug\\obj\\armeabi-v7a",
+  "buildCommandFile": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cmake\\debug\\armeabi-v7a\\build_command.txt",
+  "buildOutputFile": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cmake\\debug\\armeabi-v7a\\build_output.txt",
+  "modelOutputFile": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cmake\\debug\\armeabi-v7a\\build_model.json",
+  "cmake": {
+    "cmakeListsWrapperFile": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cxx\\debug\\armeabi-v7a\\CMakeLists.txt",
+    "toolchainWrapperFile": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cxx\\debug\\armeabi-v7a\\android_gradle_build.toolchain.cmake",
+    "buildGenerationStateFile": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cxx\\debug\\armeabi-v7a\\build_generation_state.json",
+    "cacheKeyFile": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cxx\\debug\\armeabi-v7a\\compiler_cache_key.json",
+    "compilerCacheUseFile": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cxx\\debug\\armeabi-v7a\\compiler_cache_use.json",
+    "compilerCacheWriteFile": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cxx\\debug\\armeabi-v7a\\compiler_cache_write.json",
+    "toolchainSettingsFromCacheFile": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cxx\\debug\\armeabi-v7a\\compiler_settings_cache.cmake",
+    "cmakeWrappingBaseFolder": "."
+  },
+  "jsonGenerationLoggingRecordFile": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cmake\\debug\\armeabi-v7a\\json_generation_record.json",
+  "compileCommandsJsonFile": "C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cmake\\debug\\armeabi-v7a\\compile_commands.json"
+}

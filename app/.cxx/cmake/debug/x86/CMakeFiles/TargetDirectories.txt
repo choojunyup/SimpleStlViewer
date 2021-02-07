@@ -1,0 +1,3 @@
+C:/data/android_works/SimpleStlViewer/app/.cxx/cmake/debug/x86/CMakeFiles/STLpaser_C.dir
+C:/data/android_works/SimpleStlViewer/app/.cxx/cmake/debug/x86/CMakeFiles/edit_cache.dir
+C:/data/android_works/SimpleStlViewer/app/.cxx/cmake/debug/x86/CMakeFiles/rebuild_cache.dir

@@ -7,34 +7,67 @@
         android:id="@+id/glview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-3dp">
+
     </RelativeLayout>
 
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="centerCrop"
-        android:layout_margin="7dp"
-        android:padding="0sp"
-        android:background="@drawable/refresh"
-        android:onClick="recover"
+    <Button
         android:id="@+id/button2"
+        android:background="@drawable/reset_btn"
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <ImageButton
-        android:text="Back"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:onClick="recover"
+        android:padding="0sp"
+        android:textColor="#a95555"
         android:scaleType="centerCrop"
-        android:padding="0dp"
-        android:background="@drawable/backbutton"
+        android:text="reset" />
+
+    <Button
         android:id="@+id/button1"
-        android:onClick="loadButton"
-        android:layout_alignParentTop="true"
+        android:background="@drawable/back_btn"
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentTop="true"
+        android:onClick="loadButton"
+        android:padding="0dp"
+        android:textColor="#a97b7a7a"
+        android:scaleType="centerCrop"
+        android:text="back"
+        />
+<!--
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/objectInfo_left"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/back_btn"
+        android:padding="0dp"
+        android:scaleType="centerCrop"
+        android:text="points"
+        android:textColor="#a97b7a7a" />
+-->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginEnd="42dp"
+        android:layout_marginRight="42dp"
+        android:layout_marginBottom="125dp"
+        android:visibility="invisible" />
 
     <TextView
         android:layout_width="wrap_content"

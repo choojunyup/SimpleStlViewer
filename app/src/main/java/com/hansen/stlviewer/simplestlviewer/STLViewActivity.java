@@ -14,16 +14,21 @@ import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.hansen.stlviewer.simplestlviewer.stlPaser;
+import com.hansen.stlviewer.simplestlviewer.stlprocess.stl_pocessing_thread;
+import com.hansen.stlviewer.simplestlviewer.stlprocess.stlprocessListener;
 
 import java.io.File;
 import java.io.IOException;
 
 import static java.lang.Math.abs;
 
-public class STLViewActivity extends Activity {
+public class STLViewActivity extends Activity{
 
     private stlPaser isStl;
     private String StlPath;
@@ -37,6 +42,7 @@ public class STLViewActivity extends Activity {
     static RelativeLayout mainLayout;
     private TextView objectInfo_left;
     private TextView objectInfo_right;
+    private ProgressBar progressbar;
     private Intent intent_data;
 
     private int inputState = 0;   //0:앱내부접근 1:앱외부접근
@@ -44,6 +50,8 @@ public class STLViewActivity extends Activity {
     private SharedPreferences appdatas = null;
     private SharedPreferences.Editor editor = null;
     private String dataName = "appDatas";
+
+    private stl_pocessing_thread stlPocessingThread;
 
 
     @Override
@@ -56,16 +64,13 @@ public class STLViewActivity extends Activity {
         mainLayout = (RelativeLayout)findViewById(R.id.glview);
         objectInfo_left = (TextView)findViewById(R.id.objectInfo_left);
         objectInfo_right = (TextView)findViewById(R.id.objectInfo_right);
+        progressbar = (ProgressBar)findViewById(R.id.progressBar);
 
-        //Uri url = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.welcome);
-        //Uri url = Uri.parse("android.resource://" +getResources().getResourcePackageName(R.raw.welcome));
 
                 //stl path cash reset
         //intent_data = getIntent();
         appdatas = getSharedPreferences(dataName, MODE_PRIVATE);
         editor = appdatas.edit();
-        //editor.putString("stlfilepath",url.toString());
-        //editor.commit();
 
         permissionCheck();   //권한검사
 
@@ -98,13 +103,36 @@ public class STLViewActivity extends Activity {
 
         Log.i("stlviewlog","resume");
 
-        //loadStl();
-
     }
+
+    private stlprocessListener Listener = new stlprocessListener(){
+        @Override
+        public void getGLView(MyGLSurfaceView GLView, float xSize , float ySize  ,float zSize ,int faceCnt){
+
+            mGLView = GLView;
+
+            objectInfo_left.setText(xSize+" x "+ySize+" x "+zSize+" ");
+            objectInfo_right.setText(faceCnt+" faces");
+
+            mainLayout.addView(mGLView,0);  //gl view add
+
+            complete = ( System.currentTimeMillis()-processSpeed)/1000.0f;
+            progressbar.setVisibility(View.INVISIBLE);
+
+            if(faceCnt==0){
+                Toast.makeText(STLViewActivity.this,"nothing faces", Toast.LENGTH_LONG).show();
+            }else {
+                Toast.makeText(STLViewActivity.this, "parse complete! \n" + complete + " seconds", Toast.LENGTH_LONG).show();
+            }
+        }
+    };
 
     private void STLViewSet(File file){
         processSpeed = System.currentTimeMillis();    //parsing speed check
 
+        progressbar.setVisibility(View.VISIBLE);
+
+        /*
         isStl = new stlPaser(file);  //pasering start
         xyz = isStl.getXYZ();          // object max,min coordinate
         faceCnt = isStl.getFaceCnt();  //triangle count
@@ -127,7 +155,11 @@ public class STLViewActivity extends Activity {
         }else {
             Toast.makeText(STLViewActivity.this, "parse complete! \n" + complete + " seconds", Toast.LENGTH_LONG).show();
         }
+        */
 
+
+        stlPocessingThread = new stl_pocessing_thread(this,Listener,file);
+        stlPocessingThread.run();
     }
 
     private void checknLoadStl(){
@@ -135,12 +167,12 @@ public class STLViewActivity extends Activity {
 
         intent_data = getIntent();
 
-        if(intent_data.getDataString() != null) {    //external searched
+        if(intent_data.getDataString() != null) {    //external searched   외부 탐색기에서 접근할 경우
             path = intent_data.getDataString().substring(7);
             //editor.putString("stlfilepath", path);
             //editor.commit();
             //Log.i("stl- view-","save----------------------------------"+path);
-        }else {                                     //app in searched
+        }else {                                     //app in searched    앱 내장 탐색기에서 접근할 경우
             path = intent_data.getExtras().getString("stlPath");
             //Log.i("stl- view-","load-------------------------------");
         }
@@ -159,6 +191,8 @@ public class STLViewActivity extends Activity {
         }
 
     }
+
+
 
     private void permissionCheck(){
 

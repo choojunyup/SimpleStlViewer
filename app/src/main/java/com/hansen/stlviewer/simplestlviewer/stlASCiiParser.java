@@ -1,12 +1,14 @@
 package com.hansen.stlviewer.simplestlviewer;
 
+import com.hansen.stlviewer.simplestlviewer.stlpaser.paser;
+
 import java.io.File;
 
 /**
  * Created by choojunyup on 2017-01-05.
  */
 
-public class stlASCiiParser extends paser{
+public class stlASCiiParser extends paser {
 
     static {
        System.loadLibrary("STLpaser_C");

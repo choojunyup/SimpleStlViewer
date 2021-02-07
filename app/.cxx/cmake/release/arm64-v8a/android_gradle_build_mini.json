@@ -1,0 +1,16 @@
+{
+  "buildFiles": [
+    "C:\\data\\android_works\\SimpleStlViewer\\app\\CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "C:\\Users\\choo\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cmake\\release\\arm64-v8a --target clean"
+  ],
+  "libraries": {
+    "STLpaser_C-Release-arm64-v8a": {
+      "artifactName": "STLpaser_C",
+      "buildCommand": "C:\\Users\\choo\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build C:\\data\\android_works\\SimpleStlViewer\\app\\.cxx\\cmake\\release\\arm64-v8a --target STLpaser_C",
+      "abi": "arm64-v8a",
+      "output": "C:\\data\\android_works\\SimpleStlViewer\\app\\build\\intermediates\\cmake\\release\\obj\\arm64-v8a\\libSTLpaser_C.so"
+    }
+  }
+}

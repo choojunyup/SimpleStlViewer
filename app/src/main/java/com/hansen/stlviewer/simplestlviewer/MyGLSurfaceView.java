@@ -4,6 +4,8 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 
+import com.hansen.stlviewer.simplestlviewer.stlPaser;
+
 import static java.lang.Math.pow;
 
 public class MyGLSurfaceView extends GLSurfaceView {
@@ -92,8 +94,8 @@ public class MyGLSurfaceView extends GLSurfaceView {
                     now_x = (x[0]+x[1])/2.0f;
                     now_y = (y[0]+y[1])/2.0f;
 
-                    dmx = (pre_moveX - now_x)/600;
-                    dmy = (pre_moveY - now_y)/600;
+                    dmx = (pre_moveX - now_x)/400;
+                    dmy = (pre_moveY - now_y)/400;
 
                     pre_moveX = now_x;
                     pre_moveY = now_y;

@@ -21,26 +21,38 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="70dip"
             android:layout_height="50dip"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:onClick="device_store"
-            android:text="device"
+            android:text="home"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/download_storage"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="95dip"
-            android:layout_height="50dip"
-            android:layout_alignParentTop="true"
+        <TextView
+            android:id="@+id/wall1"
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:background="#d27b7a7a"
             android:layout_toEndOf="@+id/device_store"
             android:layout_toRightOf="@+id/device_store"
-            android:onClick="download_store"
-            android:text="download"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textSize="15sp" />
+            />
+
+        <Spinner
+            android:id="@+id/storeSpinner"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_toEndOf="@+id/wall1"
+            android:layout_toRightOf="@+id/wall1" />
+
+        <TextView
+            android:id="@+id/wall2"
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:background="#d27b7a7a"
+            android:layout_toEndOf="@+id/storeSpinner"
+            android:layout_toRightOf="@+id/storeSpinner"
+            />
 
         <ImageButton
             android:id="@+id/close"

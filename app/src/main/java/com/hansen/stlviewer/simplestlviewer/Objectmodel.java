@@ -1,13 +1,20 @@
 package com.hansen.stlviewer.simplestlviewer;
 
 import android.opengl.GLES20;
+import android.util.Log;
+
+import com.hansen.stlviewer.simplestlviewer.stlPaser;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
+import static android.opengl.GLES20.GL_POLYGON_OFFSET_FILL;
+import static android.opengl.GLES20.glEnable;
+
 public class Objectmodel {
 
+    /*
     private final String vertexShaderCode =
                     "uniform mat4 uMVPMatrix;" +
                     "uniform mat4 uMVMatrix;"+
@@ -24,9 +31,31 @@ public class Objectmodel {
                             "float distance = length(uLightPos - modelViewVertex);"+
                             "vec3 lightVector = normalize(uLightPos - modelViewVertex);"+
                             "float diffuse = max(dot(modelViewNormal, lightVector), 0.1);"+
-                            "diffuse = diffuse * (1.0 / (1.0 + (0.08 * distance * distance)));"+
+                            "diffuse = diffuse * (1.0 / (0.8 + (0.01 * distance * distance)));"+
                             "uColor = vColor * (0.6 + diffuse);"+
                             "gl_Position = uMVPMatrix * vPosition;" +
+                    "}";
+     */
+
+    private final String vertexShaderCode =
+            "uniform mat4 uMVPMatrix;" +
+                    "uniform mat4 uMVMatrix;"+
+                    "uniform vec3 uLightPos;"+
+                    "uniform vec4 vColor;"+
+
+                    "attribute vec4 vPosition;" +
+                    "attribute vec3 vNormal;"+
+
+                    "varying vec4 uColor;"+
+                    "void main() {" +
+                    "vec3 modelViewVertex = vec3(uMVMatrix * vPosition);"+
+                    "vec3 modelViewNormal = vec3(uMVMatrix * vec4(vNormal, 0.0));"+
+                    "float distance = length(uLightPos - modelViewVertex);"+
+                    "vec3 lightVector = normalize(uLightPos - modelViewVertex);"+
+                    "float diffuse = max(dot(modelViewNormal, lightVector), 0.1);"+
+                    "diffuse = diffuse * (1.5 / (0.8 + (0.02 * distance)));"+
+                    "uColor = vColor * (0.6 + diffuse);"+
+                    "gl_Position = uMVPMatrix * vPosition;" +
                     "}";
 
     private final String fragmentShaderCode =
@@ -50,6 +79,7 @@ public class Objectmodel {
     private int normalsBufferIdx;
 ///////////////////////////////////////////////////
     static final int COORDS_PER_VERTEX = 3;
+
     static final int VERTEX_DATA_SIZE = 3;
     static final int NORMAL_DATA_SIZE = 3;
     static final int FLOAT_BYTE_SIZE = 4;
@@ -69,6 +99,8 @@ public class Objectmodel {
         float[] normals = stl.getNormals();
         vertexCount = vertexs.length / COORDS_PER_VERTEX;
 
+        Log.e("stl","normal: "+ normals[0]);
+
         vertexBuffer = floatToBuffer(vertexs);
         normalBuffer = floatToBuffer(normals);
 
@@ -86,7 +118,7 @@ public class Objectmodel {
 
     }
 
-    public void draw(float[] mvMatrix,float[] mvpMatrix1,float mSize) {
+    public void draw(float[] mvMatrix,float[] mvpMatrix1,float cameraX, float cameraY, float cameraZ) {
 
         GLES20.glUseProgram(mProgram);
 
@@ -97,11 +129,13 @@ public class Objectmodel {
         mLightPosHandle = GLES20.glGetUniformLocation(mProgram, "uLightPos");
         mNormalHandle = GLES20.glGetAttribLocation(mProgram, "vNormal");
 
+        //Log.e("stl", cameraX +" -- "+ cameraY +" -- "+ cameraZ);
 
         GLES20.glUniform4fv(mColorHandle, 1, color, 0);
         GLES20.glUniformMatrix4fv(mMVMatrixHandle, 1, false, mvMatrix, 0);
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix1, 0);
-        GLES20.glUniform3f(mLightPosHandle, 0, 0 ,mSize);
+        GLES20.glUniform3f(mLightPosHandle, cameraX, cameraY , cameraZ);
+        //GLES20.glUniform3f(mLightPosHandle, 0, 0 ,mSize);
 
 
         //vboUnUseRun();  //not use
@@ -164,7 +198,13 @@ public class Objectmodel {
         if(mode == 0 ){
             GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0,vertexCount);
         }else if(mode == 1){
-            GLES20.glDrawArrays(GLES20.GL_POINTS, 0,vertexCount);
+
+            //GLES20.glEnable(GLES20.GL_POLYGON_OFFSET_FILL);
+            //GLES20.glPolygonOffset(1.0f, 2.0f);
+            //GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0,vertexCount);
+            //GLES20.glDisable(GLES20.GL_POLYGON_OFFSET_FILL);
+            //gl.disable(gl.POLYGON_OFFSET_FILL);
+            //gl.enable(gl.POLYGON_OFFSET_FILL);
         }
     }
 

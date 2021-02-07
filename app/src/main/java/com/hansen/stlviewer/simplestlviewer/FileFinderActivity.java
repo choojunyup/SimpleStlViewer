@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,9 +13,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.hansen.stlviewer.simplestlviewer.customSpinner.storeSpinnerAdapter;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -27,8 +32,10 @@ import java.util.Locale;
 public class FileFinderActivity extends AppCompatActivity {
 
     private ListView mFileList;
+    private Spinner storeSpinner;
     private ArrayList<ListItem> lTemp = null;
     private String mRoot ="";
+    private String defaultRoot="";
     private TextView mPath;
     private ListViewAdapter mAdapter = null;
     private String mDirPath;
@@ -41,35 +48,23 @@ public class FileFinderActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor = null;
     private String dataName = "appDatas";
 
+    private ArrayList<String>  storeLists;
+    private ArrayList<Integer>  storeIconLists;
+    private ArrayAdapter<String> arrayAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //permissionCheck();
-
-
+        //storeSpinner = (Spinner)findViewById(R.id.storeSpinner);
         mPath = (TextView)findViewById(R.id.tvPath);
         mFileList = (ListView)findViewById(R.id.filelist);
         stlLoad = new Intent(getApplicationContext(),STLViewActivity.class);
 
-        DeivcePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-        DownloadPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+        //DeivcePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        //DownloadPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
 
-        appdatas = getSharedPreferences(dataName, MODE_PRIVATE);
-        editor = appdatas.edit();
-        //editor.clear();
-        //editor.putString("currentRoot",DeivcePath);
-        //editor.commit();
-
-       //while(permissionCheck()==0){}
-
-
-        //mRoot = rootFind();  // devices find root
-        //mRoot = Environment.getExternalStorageDirectory().getAbsolutePath();
-        //mRoot = Environment.getDataDirectory().getAbsolutePath();
-        //mRoot = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
-        //mRoot = Environment.getExternalStorageDirectory().getParent();
 
         mAdapter = new ListViewAdapter(this);
         mFileList.setAdapter(mAdapter);
@@ -174,23 +169,6 @@ public class FileFinderActivity extends AppCompatActivity {
         mFileList.setAdapter(mAdapter);
     }
 
-    /*
-    private String rootFind(){
-        String root = Environment.getExternalStorageDirectory().getAbsolutePath();
-        int end = 0;
-        if(root != null) {
-            root.trim();
-
-            end = root.indexOf('/', 1);
-            root = root.substring(0, end);
-        }else{
-            root = "/storage";
-        }
-        return root;
-    }
-    */
-
-
     @Override
     public void onBackPressed() {
         if(mRoot.equals(mDirPath)){            //if rootDirectory   app finish!!!!
@@ -215,7 +193,7 @@ public class FileFinderActivity extends AppCompatActivity {
 
     public void device_store(View v){
         //mRoot = Environment.getExternalStorageDirectory().getAbsolutePath();
-        getDir(DeivcePath);
+        getDir(Environment.getExternalStorageDirectory().getAbsolutePath());
         //FileList.setAdapter(mAdapter);
     }
 
@@ -240,12 +218,20 @@ public class FileFinderActivity extends AppCompatActivity {
                 //permission ok
                 //setRoot();
 
-                mRoot=appdatas.getString("currentRoot",DeivcePath);
-                getDir(mRoot);
+                //if(!permissionFlag) {
+                    //mRoot = appdatas.getString("currentRoot", DeivcePath);
+
+                    defaultRoot = appdatas.getString("currentRoot", Environment.getExternalStorageDirectory().getAbsolutePath());
+                    //permissionFlag = true;
+
+                    spinner_N_list_Set();
+                //}
+
                 //getDir(mDirPath);
             }
         } else {
             // low version
+            //permissionFlag = true;
             setRoot();
         }
 
@@ -270,9 +256,70 @@ public class FileFinderActivity extends AppCompatActivity {
         }
     }
 
+    private void spinner_N_list_Set(){
+
+        storeSpinner = (Spinner)findViewById(R.id.storeSpinner);
+        storeLists =  new ArrayList<String>();
+        storeIconLists = new ArrayList<Integer>();
+
+        storeLists.add(defaultRoot);                                                     //past or default path
+        storeIconLists.add(R.drawable.folder_icon);
+
+        storeLists.add(Environment.getExternalStorageDirectory().getAbsolutePath());     //device paths
+        storeIconLists.add(R.drawable.device_storage);
+
+        for(String exPaths : sdCardCheck.getExternalMounts()){                          //sd care path
+            storeLists.add(exPaths);
+            storeIconLists.add(R.drawable.sd_card);
+        }
+
+        storeLists.add(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());   //download path
+        storeIconLists.add(R.drawable.download_storage);
+
+
+
+
+
+//////////////////////////////////////////////////custom spinner///////////////////////////////////////////////////////////////////////
+        // 어댑터와 스피너를 연결합니다.
+
+        storeSpinnerAdapter StoreSpinnerAdapter = new storeSpinnerAdapter(FileFinderActivity.this, storeLists, storeIconLists);
+        storeSpinner.setAdapter(StoreSpinnerAdapter);
+
+
+
+
+        // 스피너에서 아이템 선택시 호출하도록 합니다.
+
+        storeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                //selected_fruit_idx = spinner_fruits.getSelectedItemPosition();
+                //Toast.makeText(MainActivity.this, spinnerNames[selected_fruit_idx], Toast.LENGTH_LONG).show();
+
+                Toast.makeText(getApplicationContext(), storeLists.get(i), Toast.LENGTH_SHORT).show();
+                getDir(storeLists.get(i));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+
+        });
+
+    }
+
 
     protected void onResume() {
         super.onResume();
+
+        appdatas = getSharedPreferences(dataName, MODE_PRIVATE);
+        editor = appdatas.edit();
+
         permissionCheck();
         //setRoot();
 
@@ -280,6 +327,8 @@ public class FileFinderActivity extends AppCompatActivity {
 
     private void setRoot(){
         //mRoot = Environment.getExternalStorageDirectory().getAbsolutePath();
-        getDir(DeivcePath);
+        defaultRoot = DeivcePath;
+        spinner_N_list_Set();
+        //getDir(DeivcePath);
     }
 }

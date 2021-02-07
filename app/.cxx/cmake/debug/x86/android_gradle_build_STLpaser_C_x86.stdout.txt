@@ -1,0 +1,6 @@
+[1/2] Building CXX object CMakeFiles/STLpaser_C.dir/src/main/cpp/STLpaser_C.cpp.o
+C:\data\android_works\SimpleStlViewer\app\src\main\cpp\STLpaser_C.cpp:63:26: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+        char *tokenChar =" \t\n";
+                         ^
+1 warning generated.
+[2/2] Linking CXX shared library ..\..\..\..\build\intermediates\cmake\debug\obj\x86\libSTLpaser_C.so

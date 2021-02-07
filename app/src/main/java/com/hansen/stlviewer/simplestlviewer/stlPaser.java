@@ -1,5 +1,9 @@
 package com.hansen.stlviewer.simplestlviewer;
 
+import com.hansen.stlviewer.simplestlviewer.stlpaser.paser;
+import com.hansen.stlviewer.simplestlviewer.stlASCiiParser;
+import com.hansen.stlviewer.simplestlviewer.stlBinaryParser;
+
 import java.io.File;
 
 /**

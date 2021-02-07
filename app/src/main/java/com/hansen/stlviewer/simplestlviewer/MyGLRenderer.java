@@ -3,6 +3,9 @@ package com.hansen.stlviewer.simplestlviewer;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
+import android.util.Log;
+
+import com.hansen.stlviewer.simplestlviewer.stlPaser;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -32,13 +35,13 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private float mMoveX = 0.0f;
     private float mMoveY = 0.0f;
 
-    private float cameraX = 0;
-    private float cameraY = 0;
-    private float cameraZ = 3.0f;
+    private float cameraX = 0.0f;
+    private float cameraY = 0.0f;
+    private float cameraZ = 20.0f;
 
     private float[] centerPointXYZ;    //3
 
-    //float[] vectexs_min_max;
+    float[] vectexs_min_max;
 
 
 
@@ -59,14 +62,22 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         ObjectModel = new Objectmodel(StlObject);
 
         Matrix.setIdentityM(mAccumulatedRotation, 0);
+
+        Log.i("stl- center-"," x: "+centerPointXYZ[0]+" y: "+centerPointXYZ[1]+" z: "+centerPointXYZ[2]);
+
 /*
         vectexs_min_max = StlObject.getXYZ();  //xmin,xmax,ymin,ymax,zmin,zmax
         float xLength = abs(vectexs_min_max[1]-vectexs_min_max[0]);
         float yLength = abs(vectexs_min_max[1]-vectexs_min_max[0]);
         float zLength = abs(vectexs_min_max[1]-vectexs_min_max[0]);
         float max = (xLength >= yLength ) ? xLength : yLength;
-        cameraZ = ((max >= zLength ) ? max : zLength)/2;
-*/
+        spaceMax = ((max >= zLength ) ? max : zLength);
+
+        cameraZ = spaceMax*2;
+
+ */
+
+        Log.e("stl-","z: "+cameraZ);
 
     }
 
@@ -78,7 +89,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         cameraX = mMoveX;
         cameraY = -mMoveY;
 
-        Matrix.setLookAtM(mViewMatrix, 0, cameraX, cameraY, cameraZ, mMoveX,-mMoveY, 0, 0.0f, 1.0f, 0.0f);
+        Matrix.setLookAtM(mViewMatrix, 0, cameraX, cameraY, cameraZ, mMoveX, -mMoveY, cameraZ-20.0f, 0.0f, 1.0f, 0.0f);
         Matrix.setIdentityM(mModelMatrix, 0);
 
         Matrix.setIdentityM(mRotationMatrix, 0);
@@ -102,12 +113,13 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         System.arraycopy(mTemporaryMatrix, 0, mMVPMatrix, 0, 16);
         System.arraycopy(mMVPMatrix, 0, scratch_2, 0, 16);
 
-        Matrix.translateM(scratch_2, 0,-centerPointXYZ[0],-centerPointXYZ[1],-centerPointXYZ[2]);
+        Matrix.translateM(scratch_2, 0, -centerPointXYZ[0], -centerPointXYZ[1], -centerPointXYZ[2]);
+        //Matrix.translateM(scratch_2, 0, 0, 0, 0);
 
-
-        ObjectModel.draw(scratch_1,scratch_2,cameraZ);
+        ObjectModel.draw(scratch_1,scratch_2,mMoveX,-mMoveY,cameraZ);
 
         //Log.i("stl-","change");
+        Log.e("stl","z: "+cameraZ);
     }
 
     @Override
@@ -118,10 +130,10 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         final float ratio = (float) width / height;
         final float left = -ratio;
         final float right = ratio;
-        final float bottom = -1;
-        final float top = 1;
-        final float near = 1;
-        final float far = 50;
+        final float bottom = -1.0f;
+        final float top = 1.0f;
+        final float near = 1.0f;
+        final float far = 100.0f;
 
         Matrix.frustumM(mProjectionMatrix, 0, left, right, bottom, top, near, far);
     }
@@ -211,12 +223,12 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         //Log.i("stl-","moveY:"+mMoveY);
     }
 
-    public void ObjectRecovery(){
+    public void ObjectRecovery(){    // position reset
         mMoveX = 0.0f;
         mMoveY = 0.0f;
         cameraX = 0;
         cameraY = 0;
-        cameraZ = 3.0f;
+        cameraZ = 20.0f;
 
         Matrix.setIdentityM(mRotationMatrix, 0);
         Matrix.setIdentityM(mModelMatrix, 0);
